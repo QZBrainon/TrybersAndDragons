@@ -6,6 +6,9 @@ export default abstract class Race {
     this._dexterity = dexterity;
   }
 
+  public get name() { return this._name; }
+  public get dexterity() { return this._dexterity; }
+
   static createdRacesInstances() {
     throw new Error('Not implemented');
   }
