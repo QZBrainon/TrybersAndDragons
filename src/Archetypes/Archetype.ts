@@ -14,6 +14,7 @@ export default abstract class Archetype {
   get name() { return this._name; }
   get special() { return this._special; }
   get cost() { return this._cost; }
+  
   abstract get energyType(): EnergyType; 
 
   static createdArchetypeInstances() {
