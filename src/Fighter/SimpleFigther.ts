@@ -1,6 +1,4 @@
-import Fighter from './Fighter';
-
-export default interface SimpleFighter extends Fighter {
+export default interface SimpleFighter {
   lifePoints: number;
   strength: number;
 
