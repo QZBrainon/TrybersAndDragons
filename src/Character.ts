@@ -20,7 +20,7 @@ export default class Character implements Fighter {
   ) {
     this._name = name;
     this._maxLifePoints = _race.maxLifePoints / 2;
-    this._lifePoints = _race.maxLifePoints;
+    this._lifePoints = this._maxLifePoints;
     this._strength = getRandomInt(1, 10);
     this._defense = getRandomInt(1, 10);
     this._energy = { 
@@ -43,7 +43,7 @@ export default class Character implements Fighter {
   get lifePoints(): number {
     return this._lifePoints;
   }
-  
+
   get strength(): number {
     return this._strength;
   }
@@ -57,7 +57,7 @@ export default class Character implements Fighter {
   }
 
   get energy(): Energy {
-    return this._energy;
+    return { ...this._energy };
   }
 
   receiveDamage(attackPoints: number): number {
@@ -74,7 +74,8 @@ export default class Character implements Fighter {
 
   attack(enemy: Fighter): void {
     const enemyTarget = enemy;
-    enemyTarget.lifePoints -= this.strength;
+    const dmg = this.strength;
+    enemyTarget.receiveDamage(dmg);
   }
 
   levelUp(): void {
@@ -92,9 +93,7 @@ export default class Character implements Fighter {
   special(enemy: Fighter): void {
     const enemyTarget = enemy;
     const rng = getRandomInt(1, 10);
-    if (
-      rng === 1 || enemyTarget.lifePoints < enemyTarget.lifePoints * 0.15
-    ) {
+    if (rng === 1) {
       enemyTarget.lifePoints -= this._strength * 1000; 
     }
     console.log('The enemy resisted the attack');
