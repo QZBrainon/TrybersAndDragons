@@ -1,6 +1,7 @@
 import Archetype, { Mage } from './Archetypes';
 import Energy from './Energy';
 import Fighter, { SimpleFighter } from './Fighter';
+import Monster from './Monster';
 import Race, { Elf } from './Races';
 import getRandomInt from './utils';
 
@@ -72,10 +73,14 @@ export default class Character implements Fighter {
     return this.lifePoints;
   }
 
-  attack(enemy: Fighter | SimpleFighter): void {
+  attack(enemy: Fighter | SimpleFighter | Array<Fighter | Monster>): void {
     const enemyTarget = enemy;
     const dmg = this.strength;
-    enemyTarget.receiveDamage(dmg);
+    if (Array.isArray(enemyTarget)) {
+      enemyTarget.forEach((target) => target.receiveDamage(dmg));
+    } else {
+      enemyTarget.receiveDamage(dmg);
+    }
   }
 
   levelUp(): void {
